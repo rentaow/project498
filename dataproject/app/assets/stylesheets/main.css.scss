@@ -1,0 +1,29 @@
+// Place all the styles related to the main controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+	padding-top: 50px;
+}
+
+#table-one {
+	display: block;
+	max-height: 400px;
+	overflow-y: scroll;
+}
+
+#table-two {
+	display: block;
+	max-height: 400px;
+	overflow-y: scroll;
+}
+
+#table-three {
+	display: block;
+	max-height: 400px;
+	overflow-y: scroll;
+}
+
+.navbar-example {
+	background-color: #FFFFFF;
+}
