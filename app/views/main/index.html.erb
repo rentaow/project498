@@ -1,5 +1,6 @@
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="http://datamaps.github.io/scripts/datamaps.usa.min.js"></script>
 <script>
 	$(function() {
 		$('a#one-Pk').tooltip({
@@ -144,7 +145,6 @@
 		  <li role='presentation'><a href='#expected'>Expected Performance</a></li>
 		  <li role='presentation'><a href='#value'>Value Picks</a></li>
 		  <li role='presentation'><a href='#team'>Team Performance</a></li>
-		  <li role='presentation'><a href='#d3'>D3 Visuals</a></li>
 		</ul>
 </nav>
 
@@ -180,7 +180,7 @@
 			<dt>Table Generation</dt>
 			<dd>Python and iPython Notebook</dd>
 			<dt>Graph Generation</dt>
-			<dd>D3.js</dd>
+			<dd>D3.js, DataMaps</dd>
 		</dl>
 
 		<div class='page-header' id ='expected'>
@@ -223,7 +223,7 @@
 				</tr>
 			</table>
 
-			This table is produced from aggregating players' career stats along with their draft position from the past 24 NBA seasons (90'-14'). We mined NBA players' stats from online databases and merged them into a single csv file. From these set of data we then produced average statistics for each draft position. We also created our own rating statistic (RTG) to measure players' performances.
+			This table is produced from aggregating players' career stats along with their draft position from the past 24 NBA seasons (90'-14'). We mined NBA players' stats from online databases and merged them into a single csv file. From these sets of data we then produced average statistics for each draft position. We also created our own rating statistic (RTG) to measure players' performances.
 		</div>
 
 		<table class='table table-striped table-hover' id ='table-one'>
@@ -241,10 +241,13 @@
 		  <% end %> 
 		</table>
 
+		<div id="graph-one">
+		</div>
+
 		<div class='page-header' id ='value'>
 		  <h1>Value Picks <small>Who's worth and who's not</small></h1>
 		</div>	
-			This part is intended to look into the value of each pick and more specifically which players were the best value for their pick position. The Rating differential is the stat we are calculating to see the players' value. It is the players Rating compared to the expected Rating of their pick position. The higher the rating differential, the greater the player out performed what is expected of them at their pick position. The players in this table is sorted by Rating differential in descending order.
+			This part is intended to look into the value of each pick and more specifically which players were the best value for their pick position. The Rating differential is the stat we are calculating to see the players' value. It is the players Rating compared to the expected Rating of their pick position. The higher the rating differential, the greater the player out performed what is expected of them at their pick position. The players in this table are sorted by Rating differential in descending order.
 		<div>
 
 		</div>
@@ -263,10 +266,12 @@
 		  <% end %> 
 		</table>
 
+		<div id="graph-three"></div>
+
 		<div class='page-header' id ='team'>
 		  <h1>Team Performance <small>Which teams have made good picks?</small></h1>
 		</div>
-			This table provides a look at how well a team has drafted based on a calculated Team Draft Rating statistic. This value is calculated by looking at each drafted players' career stats compared to the average stats for his draft number. The aggregate mean of the difference of each drafted player's Rating and the expected Rating for their pick position is used to calculate the Team Draft Rating. 
+			This table provides a look at how well a team has drafted based on a calculated Team Draft Rating statistic. This value is calculated by looking at each drafted players' career stats compared to the average stats for his draft number. The aggregate mean of the difference of each drafted player's Rating and the expected Rating for their pick position are used to calculate the Team Draft Rating. 
 
 			Also shown are the number of stars, solid, bench players, etc drafted by each team from the number of picks they had.
 		<div>
@@ -286,9 +291,138 @@
 		  <% end %> 
 		</table>
 
-		<div class='page-header' id ='d3'>
-		  <h1>D3 Visuals <small>Some Graphs and Visual Representations of our Data</small></h1>
-		</div>
+		<div id="graph-two" style="position: relative; width: 750px; height: 450px;"></div>
+		<script>
+		    var map = new Datamap({
+		        element: document.getElementById('graph-two'),
+		        scope: 'usa',
+		        fills: {
+		        	GREAT: "#47D147",
+		    		GOOD: "#689D35",
+		        	NEUTRAL: "#8A6924",
+		        	BAD: "#AB3412",
+		        	HORRIBLE: "#CC0000",
+		        	defaultFill: '#FFFF66'
+        		},
+        		data: {
+        			CA: {
+        				fillKey: 'GOOD',
+        				region: 'Pacific',
+        				avg: 0.1522
+        			},
+        			AZ: {
+        				fillKey: 'GOOD',
+        				region: 'Pacific',
+        				avg: 0.1522
+        			},
+        			GA: {
+        				fillKey: 'BAD',
+        				region: 'Southeast',
+        				avg: -0.3233
+        			},
+        			FL: {
+        				fillKey: 'BAD',
+        				region: 'Southeast',
+        				avg: -0.3233
+        			},
+        			MD: {
+        				fillKey: 'BAD',
+        				region: 'Southeast',
+        				avg: -0.3233
+        			},
+        			CO: {
+        				fillKey: 'HORRIBLE',
+        				region: 'Northwest',
+        				avg: -0.9146
+        			},
+        			UT: {
+        				fillKey: 'HORRIBLE',
+        				region: 'Northwest',
+        				avg: -0.9146
+        			},
+        			OR: {
+        				fillKey: 'HORRIBLE',
+        				region: 'Northwest',
+        				avg: -0.9146
+        			},
+        			OK: {
+        				fillKey: 'HORRIBLE',
+        				region: 'Northwest',
+        				avg: -0.9146
+        			},
+        			MN: {
+        				fillKey: 'HORRIBLE',
+        				region: 'Northwest',
+        				avg: -0.9146
+        			},
+        			IL: {
+        				fillKey: 'GREAT',
+        				region: 'Central',
+        				avg: 0.5366
+        			},
+        			WI: {
+        				fillKey: 'GREAT',
+        				region: 'Central',
+        				avg: 0.5366
+        			},
+        			OH: {
+        				fillKey: 'GREAT',
+        				region: 'Central',
+        				avg: 0.5366
+        			},
+        			MI: {
+        				fillKey: 'GREAT',
+        				region: 'Central',
+        				avg: 0.5366
+        			},
+        			IN: {
+        				fillKey: 'GREAT',
+        				region: 'Central',
+        				avg: 0.5366
+        			},
+        			TX: {
+        				fillKey: 'BAD',
+        				region: 'Southwest',
+        				avg: -0.4358
+        			},
+        			LA: {
+        				fillKey: 'BAD',
+        				region: 'Southwest',
+        				avg: -0.4358
+        			},
+        			TN: {
+        				fillKey: 'BAD',
+        				region: 'Southwest',
+        				avg: -0.4358
+        			},
+        			PA: {
+        				fillKey: 'GOOD',
+        				region: 'Atlantic',
+        				avg: 0.3803
+        			},
+        			NY: {
+        				fillKey: 'GOOD',
+        				region: 'Atlantic',
+        				avg: 0.3803
+        			},
+        			MA: {
+        				fillKey: 'GOOD',
+        				region: 'Atlantic',
+        				avg: 0.3803
+        			}
+        		},
+        		geographyConfig: {
+		            popupTemplate: function(geo, data) {
+		                return ['<div class="hoverinfo"><strong>',
+		                        'Average RTG in ' + data.region,
+		                        ' region: ' + data.avg,
+		                        '</strong></div>'].join('');
+            }
+        }
+		    });
+
+		    map.legend();
+		</script>
 
 		<style>
 
@@ -309,8 +443,6 @@
 
 		</style>
 
-		<div id="graph-one">
-		</div>
 		<script>
 
 		var margin = {top: 20, right: 20, bottom: 30, left: 50},
@@ -361,7 +493,8 @@
 		  svg.append("g")
 		      .attr("class", "x axis")
 		      .attr("transform", "translate(0," + height + ")")
-		      .call(xAxis);
+		      .call(xAxis)
+		      .append("text")
 
 		  svg.append("g")
 		      .attr("class", "y axis")
@@ -372,10 +505,106 @@
 		      .attr("dy", ".71em")
 		      .style("text-anchor", "end")
 		      .text("RTG");
+
+		      svg.append("text")
+		        .attr("x", (width / 2))             
+		        .attr("y", 0 + (margin.top / 2))
+		        .attr("text-anchor", "middle")  
+		        .style("font-size", "16px") 
+		        .style("text-decoration", "underline")  
+		        .text("Pick vs RTG");
 		});
 
 		</script>
 
-		
+		<script>
+
+		var margin2 = {top: 30, right: 10, bottom: 10, left: 10},
+		    width2 = 960 - margin2.left - margin2.right,
+		    height2 = 500 - margin2.top - margin2.bottom;
+
+		var x2 = d3.scale.linear()
+		    .range([0, width2])
+
+		var y2 = d3.scale.ordinal()
+		    .rangeRoundBands([0, height2], .2);
+
+		var xAxis2 = d3.svg.axis()
+		    .scale(x2)
+		    .orient("top");
+
+		var svg2 = d3.select("#graph-three").append("svg")
+		    .attr("width", width2 + margin2.left + margin2.right)
+		    .attr("height", height2 + margin2.top + margin2.bottom)
+		  .append("g")
+		    .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+
+		d3.csv("three.csv", type, function(error, data) {
+		  x2.domain(d3.extent(data, function(d) { return d.value; })).nice();
+		  y2.domain(data.map(function(d) { return d.name; }));
+
+		  svg2.selectAll(".bar")
+		      .data(data)
+		    .enter().append("rect")
+		      .attr("class", function(d) { return d.value < 0 ? "bar_negative" : "bar_positive"; })
+		      .attr("x", function(d) { return x2(Math.min(0, d.value)); })
+		      .attr("y", function(d) { return y2(d.name); })
+		      .attr("width", function(d) { return Math.abs(x2(d.value) - x2(0)); })
+		      .attr("height", y2.rangeBand());
+
+		  svg2.selectAll(".bartext")
+		  	.data(data)
+		  	.enter()
+		  	.append("text")
+		  	.attr("class","bartext")
+		  	.attr("x", function(d) { 
+		  		if (d.value > 0) {
+		  			if (d.name == "Kobe Bryant")
+		  				return x2(0) - 83;
+		  			else if (d.name == "Kevin Durant")
+		  				return x2(0) - 85;
+		  			else if (d.name == "Tony Parker")
+		  				return x2(0) - 81;
+		  			else if (d.name == "Lebron James")
+		  				return x2(0) - 94;
+		  			else if (d.name == "Vince Carter")
+		  				return x2(0) - 84;
+		  			else if (d.name == "Blake Griffin")
+		  				return x2(0) - 82;
+		  			else if (d.name == "Roy Hibbert")
+		  				return x2(0) - 80;
+		  			else if (d.name == "Kyrie Irving")
+		  				return x2(0) - 75;
+		  			else if (d.name == "Elliot Perry")
+		  				return x2(0) - 73;
+		  			else
+		  				return x2(0);
+		  		} else {
+		  			return x2(0) + 3;
+		  		}; })
+		      .attr("y", function(d) { return y2(d.name) + 13; })
+		  	.text(function(d) {
+		  		return d.name;
+		  	});
+		  svg2.append("g")
+		      .attr("class", "x axis")
+		      .call(xAxis2);
+
+		  svg2.append("g")
+		      .attr("class", "y axis")
+		    .append("line")
+		      .attr("x1", x2(0))
+		      .attr("x2", x2(0))
+		      .attr("y2", height2);
+
+		});
+
+		function type(d) {
+		  d.value = +d.value;
+		  return d;
+		}
+
+		</script>
+
 	</div>
 </div>
