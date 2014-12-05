@@ -244,6 +244,82 @@
 		<div id="graph-one">
 		</div>
 
+		<p>
+			The above graph shows the relationship between a drafted player's
+			pick number and the rating of that particular pick number of the past 24 years. 60 picks are shown on the x-axis with the pick number's respective rating represented on the y-axis. This graph was created using D3.js and the javascript code we used to generate the graph is displayed below. 
+		</p>
+		<pre>
+		var margin = {top: 20, right: 20, bottom: 30, left: 50},
+		   width = 960 - margin.left - margin.right,
+		   height = 500 - margin.top - margin.bottom;
+
+		var parseDate = d3.time.format("%d-%b-%y").parse;
+
+		var x = d3.scale.linear()
+		    .range([0, width]);
+
+		var y = d3.scale.linear()
+		    .range([height, 0]);
+
+		var xAxis = d3.svg.axis()
+		    .scale(x)
+		    .orient("bottom");
+
+		var yAxis = d3.svg.axis()
+		    .scale(y)
+		    .orient("left");
+
+		var area = d3.svg.area()
+		    .x(function(d) { return x(d.pick); })
+		    .y0(height)
+		    .y1(function(d) { return y(d.rating); });
+
+		var svg = d3.select("#graph-one").append("svg")
+		    .attr("width", width + margin.left + margin.right)
+		    .attr("height", height + margin.top + margin.bottom)
+		  .append("g")
+		    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		d3.tsv("data.tsv", function(error, data) {
+		  data.forEach(function(d) {
+		    d.pick = +d.pick;
+		    d.rating = +d.rating;
+		  });
+
+		  x.domain([1, d3.max(data, function(d) { return d.pick; })]);
+		  y.domain([0, d3.max(data, function(d) { return d.rating; })]);
+
+		  svg.append("path")
+		      .datum(data)
+		      .attr("class", "area")
+		      .attr("d", area);
+
+		  svg.append("g")
+		      .attr("class", "x axis")
+		      .attr("transform", "translate(0," + height + ")")
+		      .call(xAxis)
+		      .append("text")
+
+		  svg.append("g")
+		      .attr("class", "y axis")
+		      .call(yAxis)
+		    .append("text")
+		      .attr("transform", "rotate(-90)")
+		      .attr("y", 6)
+		      .attr("dy", ".71em")
+		      .style("text-anchor", "end")
+		      .text("RTG");
+
+		      svg.append("text")
+		        .attr("x", (width / 2))             
+		        .attr("y", 0 + (margin.top / 2))
+		        .attr("text-anchor", "middle")  
+		        .style("font-size", "16px") 
+		        .style("text-decoration", "underline")  
+		        .text("Pick vs RTG");
+		});
+		</pre>
+
 		<div class='page-header' id ='value'>
 		  <h1>Value Picks <small>Who's worth and who's not</small></h1>
 		</div>	
@@ -266,7 +342,98 @@
 		  <% end %> 
 		</table>
 
+		<p>
+			The following graph is an interesting graphical representation of certain drafted players and their Rating Differential. We selected an arbitrary group of players who had a mix of positive and negative differentials to portray the desired shape of the graph. D3.js was used to generate this graph, and we essentially created a bar graph and then rotated it 90 degrees so that the bars would be horizontal, and also used appropriate class attributes to made the positive bars green and the negative bars red.
+		</p>
+
 		<div id="graph-three"></div>
+
+		<pre>
+		var margin2 = {top: 30, right: 10, bottom: 10, left: 10},
+		    width2 = 960 - margin2.left - margin2.right,
+		    height2 = 500 - margin2.top - margin2.bottom;
+
+		var x2 = d3.scale.linear()
+		    .range([0, width2])
+
+		var y2 = d3.scale.ordinal()
+		    .rangeRoundBands([0, height2], .2);
+
+		var xAxis2 = d3.svg.axis()
+		    .scale(x2)
+		    .orient("top");
+
+		var svg2 = d3.select("#graph-three").append("svg")
+		    .attr("width", width2 + margin2.left + margin2.right)
+		    .attr("height", height2 + margin2.top + margin2.bottom)
+		  .append("g")
+		    .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+
+		d3.csv("three.csv", type, function(error, data) {
+		  x2.domain(d3.extent(data, function(d) { return d.value; })).nice();
+		  y2.domain(data.map(function(d) { return d.name; }));
+
+		  svg2.selectAll(".bar")
+		      .data(data)
+		    .enter().append("rect")
+		      .attr("class", function(d) { return d.value < 0 ? "bar_negative" : "bar_positive"; })
+		      .attr("x", function(d) { return x2(Math.min(0, d.value)); })
+		      .attr("y", function(d) { return y2(d.name); })
+		      .attr("width", function(d) { return Math.abs(x2(d.value) - x2(0)); })
+		      .attr("height", y2.rangeBand());
+
+		  svg2.selectAll(".bartext")
+		  	.data(data)
+		  	.enter()
+		  	.append("text")
+		  	.attr("class","bartext")
+		  	.attr("x", function(d) { 
+		  		if (d.value > 0) {
+		  			if (d.name == "Kobe Bryant")
+		  				return x2(0) - 83;
+		  			else if (d.name == "Kevin Durant")
+		  				return x2(0) - 85;
+		  			else if (d.name == "Tony Parker")
+		  				return x2(0) - 81;
+		  			else if (d.name == "Lebron James")
+		  				return x2(0) - 94;
+		  			else if (d.name == "Vince Carter")
+		  				return x2(0) - 84;
+		  			else if (d.name == "Blake Griffin")
+		  				return x2(0) - 82;
+		  			else if (d.name == "Roy Hibbert")
+		  				return x2(0) - 80;
+		  			else if (d.name == "Kyrie Irving")
+		  				return x2(0) - 75;
+		  			else if (d.name == "Elliot Perry")
+		  				return x2(0) - 73;
+		  			else
+		  				return x2(0);
+		  		} else {
+		  			return x2(0) + 3;
+		  		}; })
+		      .attr("y", function(d) { return y2(d.name) + 13; })
+		  	.text(function(d) {
+		  		return d.name;
+		  	});
+		  svg2.append("g")
+		      .attr("class", "x axis")
+		      .call(xAxis2);
+
+		  svg2.append("g")
+		      .attr("class", "y axis")
+		    .append("line")
+		      .attr("x1", x2(0))
+		      .attr("x2", x2(0))
+		      .attr("y2", height2);
+
+		});
+
+		function type(d) {
+		  d.value = +d.value;
+		  return d;
+		}
+		</pre>
 
 		<div class='page-header' id ='team'>
 		  <h1>Team Performance <small>Which teams have made good picks?</small></h1>
@@ -291,7 +458,143 @@
 		  <% end %> 
 		</table>
 
+		<p>
+			Our final graph is a graphical representation of how certain geographical regions in the United States performed during their drafting of players. Using the regions defined in the NBA which include the Atlantic, Southwest, Central, Northwest, Southeast, and Pacific regions, we determined which teams were in each specific region and then calculated the average team draft rating of the teams in each region. Next, we had to determine which specific states actually have teams so that we could mark these states on our datamap while leaving states that don't have basketball teams blank. Finally, we color coded the states in each region according to how that region's average team draft rating, and created a legend where green represents a high average team draft rating and red represents a low average team draft rating.
+		</p>
+
 		<div id="graph-two" style="position: relative; width: 750px; height: 450px;"></div>
+
+		<pre style="margin-top:50px;">
+		    var map = new Datamap({
+		        element: document.getElementById('graph-two'),
+		        scope: 'usa',
+		        fills: {
+		        	GREAT: "#47D147",
+		    		GOOD: "#689D35",
+		        	NEUTRAL: "#8A6924",
+		        	BAD: "#AB3412",
+		        	HORRIBLE: "#CC0000",
+		        	defaultFill: '#FFFF66'
+        		},
+        		data: {
+        			CA: {
+        				fillKey: 'GOOD',
+        				region: 'Pacific',
+        				avg: 0.1522
+        			},
+        			AZ: {
+        				fillKey: 'GOOD',
+        				region: 'Pacific',
+        				avg: 0.1522
+        			},
+        			GA: {
+        				fillKey: 'BAD',
+        				region: 'Southeast',
+        				avg: -0.3233
+        			},
+        			FL: {
+        				fillKey: 'BAD',
+        				region: 'Southeast',
+        				avg: -0.3233
+        			},
+        			MD: {
+        				fillKey: 'BAD',
+        				region: 'Southeast',
+        				avg: -0.3233
+        			},
+        			CO: {
+        				fillKey: 'HORRIBLE',
+        				region: 'Northwest',
+        				avg: -0.9146
+        			},
+        			UT: {
+        				fillKey: 'HORRIBLE',
+        				region: 'Northwest',
+        				avg: -0.9146
+        			},
+        			OR: {
+        				fillKey: 'HORRIBLE',
+        				region: 'Northwest',
+        				avg: -0.9146
+        			},
+        			OK: {
+        				fillKey: 'HORRIBLE',
+        				region: 'Northwest',
+        				avg: -0.9146
+        			},
+        			MN: {
+        				fillKey: 'HORRIBLE',
+        				region: 'Northwest',
+        				avg: -0.9146
+        			},
+        			IL: {
+        				fillKey: 'GREAT',
+        				region: 'Central',
+        				avg: 0.5366
+        			},
+        			WI: {
+        				fillKey: 'GREAT',
+        				region: 'Central',
+        				avg: 0.5366
+        			},
+        			OH: {
+        				fillKey: 'GREAT',
+        				region: 'Central',
+        				avg: 0.5366
+        			},
+        			MI: {
+        				fillKey: 'GREAT',
+        				region: 'Central',
+        				avg: 0.5366
+        			},
+        			IN: {
+        				fillKey: 'GREAT',
+        				region: 'Central',
+        				avg: 0.5366
+        			},
+        			TX: {
+        				fillKey: 'BAD',
+        				region: 'Southwest',
+        				avg: -0.4358
+        			},
+        			LA: {
+        				fillKey: 'BAD',
+        				region: 'Southwest',
+        				avg: -0.4358
+        			},
+        			TN: {
+        				fillKey: 'BAD',
+        				region: 'Southwest',
+        				avg: -0.4358
+        			},
+        			PA: {
+        				fillKey: 'GOOD',
+        				region: 'Atlantic',
+        				avg: 0.3803
+        			},
+        			NY: {
+        				fillKey: 'GOOD',
+        				region: 'Atlantic',
+        				avg: 0.3803
+        			},
+        			MA: {
+        				fillKey: 'GOOD',
+        				region: 'Atlantic',
+        				avg: 0.3803
+        			}
+        		},
+        		geographyConfig: {
+		            popupTemplate: function(geo, data) {
+		                return ['<strong>',
+		                        'Average RTG in ' + data.region,
+		                        ' region: ' + data.avg,
+		                        '</strong>'].join('');
+            }
+        }
+		    });
+
+		    map.legend();
+		</pre>
 		<script>
 		    var map = new Datamap({
 		        element: document.getElementById('graph-two'),
