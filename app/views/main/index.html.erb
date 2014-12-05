@@ -1,18 +1,157 @@
-<nav class="navbar-example navbar-fixed-top container">
-		<ul class="nav nav-tabs">
-		  <li role="presentation" class="active"><a href="#overview">Overview</a></li>
-		  <li role="presentation"><a href="#technology">Technology Stack</a></li>
-		  <li role="presentation"><a href="#expected">Expected Performance</a></li>
-		  <li role="presentation"><a href="#value">Value Picks</a></li>
-		  <li role="presentation"><a href="#team">Team Performance</a></li>
-		  <li role="presentation"><a href="#d3">D3 Visuals</a></li>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+<script>
+	$(function() {
+		$('a#one-Pk').tooltip({
+			title: 'Pick number'
+		});
+		$('a#one-FG\\%').tooltip({
+			title: 'Average field goal percentage'
+		});
+		$('a#one-3P\\%').tooltip({
+			title: 'Average 3 point field goal percentage'
+		});
+		$('a#one-FT\\%').tooltip({
+			title: 'Average free throw percentage'
+		});
+		$('a#one-MP').tooltip({
+			title: 'Average minutes per game'
+		});
+		$('a#one-PTS').tooltip({
+			title: 'Average points per game'
+		});
+		$('a#one-TRB').tooltip({
+			title: 'Average total rebounds per game'
+		});
+		$('a#one-AST').tooltip({
+			title: 'Average assists per game'
+		});
+		$('a#one-WS').tooltip({
+			title: 'Average win shares (Estimate of # of wins contributed by player)'
+		});
+		$('a#one-RTG').tooltip({
+			title: 'Average Rating (PTS + TRB + AST)'
+		});
+		$('a#one-count').tooltip({
+			title: 'Number of players analyzed'
+		});
+		$('a#one-Star').tooltip({
+			title: 'Percentage players of draft position with Star Rating'
+		});
+		$('a#one-Solid').tooltip({
+			title: 'Percentage players of draft position with Solid Rating'
+		});
+		$('a#one-RoleP').tooltip({
+			title: 'Percentage players of draft position with Role Player Rating'
+		});
+		$('a#one-BenchP').tooltip({
+			title: 'Percentage players of draft position with Bench player Rating'
+		});
+		$('a#one-Bust').tooltip({
+			title: 'Percentage players of draft position that are busts'
+		});
+		$('a#one-DNP').tooltip({
+			title: 'Percentage of players of draft position that did not play'
+		});
+		$('a#two-Pk').tooltip({
+			title: 'Pick number'
+		});
+		$('a#two-Tm').tooltip({
+			title: 'The team that drafted this player'
+		});
+		$('a#two-Player').tooltip({
+			title: 'Player name'
+		});
+		$('a#two-FG\\%').tooltip({
+			title: 'Average field goal percentage'
+		});
+		$('a#two-3P\\%').tooltip({
+			title: 'Average 3 point field goal percentage'
+		});
+		$('a#two-FT\\%').tooltip({
+			title: 'Average free throw percentage'
+		});
+		$('a#two-MP').tooltip({
+			title: 'Average minutes per game'
+		});
+		$('a#two-PTS').tooltip({
+			title: 'Average points per game'
+		});
+		$('a#two-TRB').tooltip({
+			title: 'Average total rebounds per game'
+		});
+		$('a#two-AST').tooltip({
+			title: 'Average assists per game'
+		});
+		$('a#two-WS').tooltip({
+			title: 'Average win shares (Estimate of # of wins contributed by player)'
+		});
+		$('a#two-WS\\/48').tooltip({
+			title: 'Average win shares per 48 minutes (Estimate of # of wins contributed by player)'
+		});
+		$('a#two-RTG').tooltip({
+			title: 'Average Rating (PTS + TRB + AST)'
+		});
+		$('a#two-RTG_exp').tooltip({
+			title: 'Expected rating of pick position'
+		});
+		$('a#two-RTG_diff').tooltip({
+			title: 'Difference between expected and actual rating of player'
+		});
+		$('a#two-PTS_exp').tooltip({
+			title: 'Expected PTS of pick position'
+		});
+		$('a#two-TRB_exp').tooltip({
+			title: 'Expected TRB of pick position'
+		});
+		$('a#two-AST_exp').tooltip({
+			title: 'Expected AST of pick position'
+		});
+		$('a#three-Tm').tooltip({
+			title: 'Team name'
+		});
+		$('a#three-Team_Draft_RTG').tooltip({
+			title: "Rating of how well each team drafted. Takes into account selected players' performance given their draft position"
+		});
+		$('a#three-picks').tooltip({
+			title: 'Number of picks drafted'
+		});
+		$('a#three-Star').tooltip({
+			title: 'Number of stars drafted'
+		});
+		$('a#three-Solid').tooltip({
+			title: 'Number of solid players drafted'
+		});
+		$('a#three-RoleP').tooltip({
+			title: 'Number of role players drafted'
+		});
+		$('a#three-BenchP').tooltip({
+			title: 'Number of bench players drafted'
+		});
+		$('a#three-Bust').tooltip({
+			title: 'Number of busts drafted'
+		});
+		$('a#three-DNP').tooltip({
+			title: 'Number of players drafted who did not play'
+		});
+	})
+</script>
+
+<nav class='navbar-example navbar-fixed-top container'>
+		<ul class='nav nav-tabs'>
+		  <li role='presentation' class='active'><a href='#overview'>Overview</a></li>
+		  <li role='presentation'><a href='#technology'>Technology Stack</a></li>
+		  <li role='presentation'><a href='#expected'>Expected Performance</a></li>
+		  <li role='presentation'><a href='#value'>Value Picks</a></li>
+		  <li role='presentation'><a href='#team'>Team Performance</a></li>
+		  <li role='presentation'><a href='#d3'>D3 Visuals</a></li>
 		</ul>
 </nav>
 
-<div class="container">
-	<div class="col-md-8">
+<div class='container'>
+	<div class='col-md-8'>
 
-		<div class="page-header" id ="overview">
+		<div class='page-header' id ='overview'>
 		  <h1>An Overview of Our Project <small>Rentao Wu & Danny Shaw CMSC498O</small></h1>
 		</div>
 
@@ -21,28 +160,30 @@
 			Association (NBA) data, specifically season statistics for players as well as projected
 			draft and actual draft results and using various resources and techniques, including
 			ones that we have learned in this class so far, to analyze and display our findings using
-			graphical and table representations. The python code and ipython notebook that was used to generate the tables is located at <a href="http://nbviewer.ipython.org/github/rentaow/project498/blob/master/draft_PER/draft_pos_rating.ipynb">http://nbviewer.ipython.org/github/rentaow/project498/blob/master/draft_PER/draft_pos_rating.ipynb</a>.
+			graphical and table representations. The python code and ipython notebook that was used to generate the tables is located at <a href='http://nbviewer.ipython.org/github/rentaow/project498/blob/master/draft_PER/draft_pos_rating.ipynb'>http://nbviewer.ipython.org/github/rentaow/project498/blob/master/draft_PER/draft_pos_rating.ipynb</a>.
 
 		</div>
 
-		<div class="page-header" id ="technology">
+		<div class='page-header' id ='technology'>
 		  <h1>Our Technology Stack <small>What's working behind the scenes?</small></h1>
 		</div>
 
-		<dl class="dl-horizontal">
+		<dl class='dl-horizontal'>
 			<dt>Web Server/ Backend</dt>
 			<dd>Ruby on Rails</dd>
 			<dt>Web Hosting</dt>
 			<dd>Heroku</dd>
 			<dt>Front-end</dt>
-			<dd>Twitter Bootstrap and custom Javascript</dd>
+			<dd>Twitter Bootstrap and custom CSS/Javascript</dd>
+			<dt>Source Control</dt>
+			<dd>Github: <a href='https://github.com/rentaow/project498'>https://github.com/rentaow/project498</a></dd>
 			<dt>Table Generation</dt>
 			<dd>Python and iPython Notebook</dd>
 			<dt>Graph Generation</dt>
 			<dd>D3.js</dd>
 		</dl>
 
-		<div class="page-header" id ="expected">
+		<div class='page-header' id ='expected'>
 		  <h1>Expected Performance <small>What's expected of a draft pick?</small></h1>
 		</div>
 		
@@ -51,28 +192,28 @@
 
 			We used a simple rating system (RTG) for grouping players:
 
-			<table class="table table-condensed table-bordered table-hover" id = "table-rating">
+			<table class='table table-condensed table-bordered table-hover' id = 'table-rating'>
 				<tr>
 					<th> Rating (RTG) </th>
 					<th> Group </th>
 				</tr>
-				<tr class="success">
+				<tr class='success'>
 					<td> > 19.9 </td>
 					<td> Star </td>
 				</tr>
-				<tr class="info">
+				<tr class='info'>
 					<td> 15.0 - 19.9 </td>
 					<td> Solid </td>
 				</tr>
-				<tr class="active">
+				<tr class='active'>
 					<td> 10 - 14.9 </td>
 					<td> Role Player </td>
 				</tr>
-				<tr class="warning">
+				<tr class='warning'>
 					<td> 5 - 9.9 </td>
 					<td> Bench Player </td>
 				</tr>
-				<tr class="error">
+				<tr class='error'>
 					<td> < 5 </td>
 					<td> Bust </td>
 				</tr>
@@ -85,10 +226,10 @@
 			This table is produced from aggregating players' career stats along with their draft position from the past 24 NBA seasons (90'-14'). We mined NBA players' stats from online databases and merged them into a single csv file. From these set of data we then produced average statistics for each draft position. We also created our own rating statistic (RTG) to measure players' performances.
 		</div>
 
-		<table class="table table-striped table-hover" id ="table-one">
+		<table class='table table-striped table-hover' id ='table-one'>
 		  <tr>
 		  <% @table_one.headers.each do |header| %>
-		    <th class="<%= header %>"><%= header %></th>
+		    <th><a id='one-<%= header %>' data-toggle='tooltip'><%= header %></a></th>
 		  <% end %> 
 		  </tr>
 		  <% @table_one.each do |row| %>
@@ -100,17 +241,17 @@
 		  <% end %> 
 		</table>
 
-		<div class="page-header" id ="value">
+		<div class='page-header' id ='value'>
 		  <h1>Value Picks <small>Who's worth and who's not</small></h1>
 		</div>	
 			This part is intended to look into the value of each pick and more specifically which players were the best value for their pick position. The Rating differential is the stat we are calculating to see the players' value. It is the players Rating compared to the expected Rating of their pick position. The higher the rating differential, the greater the player out performed what is expected of them at their pick position. The players in this table is sorted by Rating differential in descending order.
 		<div>
 
 		</div>
-		<table class="table table-striped table-hover" id ="table-two">
+		<table class='table table-striped table-hover' id ='table-two'>
 		  <tr>
 		  <% @table_two.headers.each do |header| %>
-		    <th class="<%= header %>"><%= header %></th>
+		    <th><a id='two-<%= header %>' data-toggle='tooltip'><%= header %></a></th>
 		  <% end %> 
 		  </tr>
 		  <% @table_two.each do |row| %>
@@ -122,7 +263,7 @@
 		  <% end %> 
 		</table>
 
-		<div class="page-header" id ="team">
+		<div class='page-header' id ='team'>
 		  <h1>Team Performance <small>Which teams have made good picks?</small></h1>
 		</div>
 			This table provides a look at how well a team has drafted based on a calculated Team Draft Rating statistic. This value is calculated by looking at each drafted players' career stats compared to the average stats for his draft number. The aggregate mean of the difference of each drafted player's Rating and the expected Rating for their pick position is used to calculate the Team Draft Rating. 
@@ -130,10 +271,10 @@
 			Also shown are the number of stars, solid, bench players, etc drafted by each team from the number of picks they had.
 		<div>
 		</div>
-		<table class="table table-striped table-hover" id ="table-three">
+		<table class='table table-striped table-hover' id ='table-three'>
 		  <tr>
 		  <% @table_three.headers.each do |header| %>
-		    <th class="<%= header %>"><%= header %></th>
+		    <th><a id='three-<%= header %>' data-toggle='tooltip'><%= header %></a></th>
 		  <% end %> 
 		  </tr>
 		  <% @table_three.each do |row| %>
@@ -145,8 +286,96 @@
 		  <% end %> 
 		</table>
 
-		<div class="page-header" id ="d3">
+		<div class='page-header' id ='d3'>
 		  <h1>D3 Visuals <small>Some Graphs and Visual Representations of our Data</small></h1>
 		</div>
+
+		<style>
+
+		#graph-one {
+		  font: 10px sans-serif;
+		}
+
+		.axis path,
+		.axis line {
+		  fill: none;
+		  stroke: #000;
+		  shape-rendering: crispEdges;
+		}
+
+		.area {
+		  fill: steelblue;
+		}
+
+		</style>
+
+		<div id="graph-one">
+		</div>
+		<script>
+
+		var margin = {top: 20, right: 20, bottom: 30, left: 50},
+		    width = 960 - margin.left - margin.right,
+		    height = 500 - margin.top - margin.bottom;
+
+		var parseDate = d3.time.format("%d-%b-%y").parse;
+
+		var x = d3.scale.linear()
+		    .range([0, width]);
+
+		var y = d3.scale.linear()
+		    .range([height, 0]);
+
+		var xAxis = d3.svg.axis()
+		    .scale(x)
+		    .orient("bottom");
+
+		var yAxis = d3.svg.axis()
+		    .scale(y)
+		    .orient("left");
+
+		var area = d3.svg.area()
+		    .x(function(d) { return x(d.pick); })
+		    .y0(height)
+		    .y1(function(d) { return y(d.rating); });
+
+		var svg = d3.select("#graph-one").append("svg")
+		    .attr("width", width + margin.left + margin.right)
+		    .attr("height", height + margin.top + margin.bottom)
+		  .append("g")
+		    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		d3.tsv("data.tsv", function(error, data) {
+		  data.forEach(function(d) {
+		    d.pick = +d.pick;
+		    d.rating = +d.rating;
+		  });
+
+		  x.domain([1, d3.max(data, function(d) { return d.pick; })]);
+		  y.domain([0, d3.max(data, function(d) { return d.rating; })]);
+
+		  svg.append("path")
+		      .datum(data)
+		      .attr("class", "area")
+		      .attr("d", area);
+
+		  svg.append("g")
+		      .attr("class", "x axis")
+		      .attr("transform", "translate(0," + height + ")")
+		      .call(xAxis);
+
+		  svg.append("g")
+		      .attr("class", "y axis")
+		      .call(yAxis)
+		    .append("text")
+		      .attr("transform", "rotate(-90)")
+		      .attr("y", 6)
+		      .attr("dy", ".71em")
+		      .style("text-anchor", "end")
+		      .text("RTG");
+		});
+
+		</script>
+
+		
 	</div>
 </div>
